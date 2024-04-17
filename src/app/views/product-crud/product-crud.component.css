@@ -1,3 +1,7 @@
- p {
+p {
   color: black;
- }
+}
+
+button {
+  margin-bottom: 20px;
+}

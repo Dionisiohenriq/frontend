@@ -3,11 +3,10 @@
   bottom: 0;
   display: flex;
   justify-content: flex-end;
+  z-index: 0;
 }
 
 .footer > span {
   font-weight: 300;
   font-size: 1.1rem;
 }
-
-
