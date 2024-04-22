@@ -5,12 +5,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomCurrencyPipePipe } from '../../../pipes/custom-currency-pipe.pipe';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-product-update',
+  selector: 'app-product-delete',
   standalone: true,
   imports: [
     MatInputModule,
@@ -18,12 +17,11 @@ import { ProductService } from '../product.service';
     FormsModule,
     MatFormFieldModule,
     MatButtonModule,
-    CustomCurrencyPipePipe,
   ],
-  templateUrl: './product-update.component.html',
-  styleUrl: './product-update.component.css',
+  templateUrl: './product-delete.component.html',
+  styleUrl: './product-delete.component.css',
 })
-export class ProductUpdateComponent implements OnInit {
+export class ProductDeleteComponent implements OnInit {
   product: Product = {
     name: '',
     price: 0,
@@ -31,23 +29,22 @@ export class ProductUpdateComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     this.productService.getProductById(id).subscribe((product) => {
       this.product = product;
     });
   }
-  updateProduct(): void {
-    this.productService.updateProduct(this.product).subscribe(() => {
-      this.productService.showMessage('Product updated successfully!');
+  deleteProduct() {
+    this.productService.deleteProduct(this.product.id).subscribe(() => {
+      this.productService.showMessage('Product deleted successfully!', true);
       this.router.navigate(['/product']);
     });
   }
-  cancel(): void {
+  cancelDelete() {
     this.router.navigate(['/product']);
   }
 }
